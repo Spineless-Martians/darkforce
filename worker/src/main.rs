@@ -12,7 +12,7 @@ pub async fn main() -> Result<(), Error> {
     let builder = TerminalLoggerBuilder::new();
     let logger = builder.build()?;
 
-    info!(logger, "Worker is saying: Hello World");
+    info!(logger, "Initializing Darkforce Worker!");
 
     Ok(())
 }
