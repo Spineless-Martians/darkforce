@@ -1,0 +1,13 @@
+.darkforce/
+.github/
+node_modules/
+target/
+.idea/
+.editorconfig
+.lintstagedrc.js
+.rustfmt.toml
+docker-compose.yaml
+LICENSE
+package.json
+package-lock.json
+README.md

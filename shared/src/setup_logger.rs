@@ -6,9 +6,10 @@ use sloggers::{
     Error,
 };
 
+/// Constructs a default logger that is used throughout darkforce
 pub fn setup_logger() -> Result<Logger, Error> {
     let mut builder = TerminalLoggerBuilder::new();
-    builder.level(Severity::Trace);
+    builder.level(Severity::Trace); // <- Log everything
     let logger = builder.build()?;
     Ok(logger)
 }

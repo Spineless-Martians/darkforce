@@ -1,9 +1,17 @@
 version: '3'
 services:
   worker:
-    build: worker/
+    build:
+      dockerfile: worker/Dockerfile
+      context: .
     ports:
       - "5000:5000"
+  scheduler:
+    build:
+      dockerfile: scheduler/Dockerfile
+      context: .
+    ports:
+      - "3010:3010"
   database:
     image: mongo:latest
     environment:
@@ -12,6 +20,4 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - mongodb_data_container:/data/db
-volumes:
-  mongodb_data_container:
+      - ./.mongodb:/data/db

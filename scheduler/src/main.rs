@@ -4,8 +4,8 @@ extern crate slog;
 use darkforce_shared::{
     get_store_from_config,
     load_settings,
+    print_banner,
     setup_logger,
-    DAGDescription,
     DAGManager,
 };
 use failure::Error;
@@ -13,15 +13,13 @@ use failure::Error;
 #[tokio::main]
 pub async fn main() -> Result<(), Error> {
     let logger = setup_logger()?;
+    let settings = load_settings(&logger)?;
+
+    print_banner(&settings);
 
     info!(logger, "Starting Darkforce Scheduler");
 
-    let settings = load_settings(&logger)?;
-
     let store = get_store_from_config(&logger, &settings).await?;
-    store
-        .store_dag(&logger, &DAGDescription::new("TEST", None, vec![]))
-        .await?;
 
     let _manager = DAGManager::new(&logger, &store).await?;
 

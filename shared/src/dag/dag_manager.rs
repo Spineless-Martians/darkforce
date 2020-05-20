@@ -18,6 +18,9 @@ pub struct DAGManager {
 
 struct DAG(DAGDescription, Library);
 
+const ROOT_FOLDER: &'static str = ".darkforce/";
+const DAG_LIBRARY_FOLDER: &'static str = ".darkforce/dags/";
+
 impl DAGManager {
     pub async fn new(logger: &Logger, store: &Arc<dyn Store>) -> Result<Self, Error> {
         let dag_descriptions = store.load_dags(&logger).await?;
@@ -49,7 +52,10 @@ impl DAGManager {
     }
 
     async fn save_lib_to_file(logger: &Logger, dag: &DAGDescription) -> Result<(), Error> {
-        if create_dir("dags").await.is_ok() {
+        if create_dir(ROOT_FOLDER).await.is_ok() {
+            info!(logger, "root folder was missing, created it");
+        }
+        if create_dir(DAG_LIBRARY_FOLDER).await.is_ok() {
             info!(logger, "dags folder was missing, created it");
         }
 
@@ -57,7 +63,7 @@ impl DAGManager {
             .write(true)
             .create(true)
             .truncate(true)
-            .open(format!("dags/{}.so", dag.name))
+            .open(format!("{}{}.so", DAG_LIBRARY_FOLDER, dag.name))
             .await?;
 
         debug!(logger, "Stored DAG source into file");
@@ -66,7 +72,7 @@ impl DAGManager {
     }
 
     fn load_library(_logger: &Logger, dag: &DAGDescription) -> Result<Library, Error> {
-        let lib = Library::new(format!("dags/{}.so", dag.name))?;
+        let lib = Library::new(format!("{}{}.so", DAG_LIBRARY_FOLDER, dag.name))?;
         Ok(lib)
     }
 }

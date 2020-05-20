@@ -14,6 +14,7 @@ use futures::{
     FutureExt,
 };
 use mongodb::{
+    error::ErrorKind,
     Client,
     Database,
 };
@@ -67,7 +68,12 @@ impl Store for MongoDBStore {
 
             let collection = self.database.collection(DAG_COLLECTION_NAME);
 
-            let cursor = collection.find(None, None).await?;
+            let cursor = collection.find(None, None).await.map_err(|e| {
+                if let ErrorKind::ServerSelectionError{ message } = &*e.kind {
+                    crit!(logger, "Failed to connect to mongodb 😩 Maybe to mongo server isn't running, or maybe the address is wrong in your connection uri"; "internal_message" => message);
+                }
+                e
+            })?;
 
             let descriptions: Vec<DAGDescription> = cursor
                 .filter_map(|item| {

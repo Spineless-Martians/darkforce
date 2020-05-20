@@ -1,0 +1,7 @@
+[package]
+name = "darkforce_dag"
+version = "0.1.0"
+authors = ["Joatin Granlund <granlundjoatin@gmail.com>", "lykata"]
+edition = "2018"
+
+[dependencies]

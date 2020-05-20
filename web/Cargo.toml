@@ -1,0 +1,17 @@
+[package]
+name = "darkforce_web"
+version = "0.1.0"
+authors = ["Joatin Granlund <granlundjoatin@gmail.com>", "lykata"]
+edition = "2018"
+
+[dependencies]
+tokio = { version = "0.2.21", features = ["full"] }
+slog = "2.5.2"
+failure = "0.1.8"
+futures = "0.3.5"
+darkforce_shared = { path = "../shared" }
+juniper = { git = "https://github.com/graphql-rust/juniper/", features = ["expose-test-schema", "serde_json"] }
+hyper = "0.13"
+juniper_hyper = { git = "https://github.com/graphql-rust/juniper/" }
+chrono = { version = "0.4.11", features = ["serde"] }
+rust-embed= { version = "5.5.1", features = ["debug-embed", "compression"] }
