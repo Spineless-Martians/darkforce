@@ -3,6 +3,7 @@ import styles from './Header.module.scss';
 import {graphql, Link, StaticQuery} from "gatsby";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
+import DarkforceImage from "./DarkforceImage";
 
 const headerQuery = graphql`
   query HeaderQuery {
@@ -28,29 +29,12 @@ export default class Header extends Component<HeaderProps> {
     const {title} = this.props;
 
     return (
-      <>
-        <div className={styles.headerPlaceHolder} />
-        <StaticQuery
-          query={headerQuery}
-          render={data => (
-            <div className={styles.header}>
-              <Link to={'/'} className={styles.itemMain}>
-                <span>{title}</span>
-              </Link>
-              { data.site.siteMetadata.menuLinks.map(({ name, link }) => (
-                <Link key={name} to={link} className={styles.item}>
-                  <span>{name}</span>
-                </Link>
-              )) }
-              <div className={styles.spacer}/>
-              <a
-                href={data.site.siteMetadata.repository}
-                className={styles.github}
-              ><FontAwesomeIcon size={'2x'} icon={faGithub} color={'white'} /></a>
-            </div>
-          )}
-        />
-      </>
+      <div className={styles.header}>
+        <div className={styles.item}>
+          <DarkforceImage />
+        </div>
+
+      </div>
     )
   }
 }

@@ -11,3 +11,8 @@ LICENSE
 package.json
 package-lock.json
 README.md
+web/app/node_modules/
+web/app/public/
+web/app/.cache/
+.mongodb/
+.darkforce/

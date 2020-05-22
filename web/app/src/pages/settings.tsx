@@ -3,12 +3,12 @@ import React, {Component} from "react"
 import Layout from "../components/Layout/Layout";
 
 
-export default class IndexPage extends Component {
+export default class SettingsPage extends Component {
 
   render() {
     return (
-      <Layout title="Home">
-        INDEX
+      <Layout title="Settings">
+        SETTINGS
       </Layout>
     )
   }

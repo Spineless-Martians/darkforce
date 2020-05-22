@@ -6,6 +6,7 @@ COPY scheduler/Cargo.toml ./scheduler/Cargo.toml
 COPY shared ./shared
 RUN mkdir scheduler/src && echo "fn main() {}" >> scheduler/src/main.rs
 RUN cd scheduler && cargo build --release
+RUN rm -f scheduler/target/release/deps/darkforce_scheduler*
 RUN rm -rf scheduler/src
 COPY scheduler scheduler/
 RUN cd scheduler && cargo build --release

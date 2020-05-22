@@ -5,15 +5,20 @@ module.exports = {
     description: `Darkforce`,
     author: `Joatin Granlund <granlundjoatin@icloud.com>, lykata`,
     repository: `https://github.com/Spineless-Martians/darkforce`,
-    menuLinks:[
+    menuItems:[
       {
-        name:'Schemas',
-        link:'/schemas',
+        name:'Home',
+        link:'/',
+        icon: 'home'
+      },
+      {
+        name:'Dag List',
+        link:'/dags',
         icon: 'book'
       },
       {
-        name:'Stats',
-        link:'/stats',
+        name:'Users',
+        link:'/users',
         icon: 'rss'
       },
       {
@@ -42,12 +47,22 @@ module.exports = {
         name: `darkforce`,
         short_name: `darkforce`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `#292b33`,
+        theme_color: `#292b33`,
         display: `minimal-ui`,
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
     `gatsby-plugin-offline`
+  ],
+  proxy: [
+    {
+      prefix: "/graphql",
+      url: "http://localhost:3000/graphql/",
+    },
+    {
+      prefix: "/playground",
+      url: "http://localhost:3000/playground/",
+    }
   ],
 };

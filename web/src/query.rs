@@ -1,6 +1,4 @@
-
-
-const VERSION: &'static str = env!("CARGO_PKG_VERSION");
+const VERSION: &str = env!("CARGO_PKG_VERSION");
 
 pub struct Query {}
 

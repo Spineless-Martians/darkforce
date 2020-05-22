@@ -49,8 +49,8 @@ pub async fn start_web_server(logger: &Logger) -> Result<(), Error> {
                         _ => {
                             let asset = Assets::iter().find(|i| req.uri().path() == i);
 
-                            let body = if asset.is_some() {
-                                Body::from(Assets::get(&asset.unwrap()).unwrap())
+                            let body = if let Some(ass) = asset {
+                                Body::from(Assets::get(&ass).unwrap())
                             } else {
                                 Body::from(Assets::get("index.html").unwrap())
                             };

@@ -3,6 +3,7 @@ WORKDIR /usr/data
 COPY worker/Cargo.toml ./worker/Cargo.toml
 RUN mkdir worker/src && echo "fn main() {}" >> worker/src/main.rs
 RUN cd worker && cargo build --release
+RUN rm -f worker/target/release/deps/darkforce_worker*
 RUN rm -rf worker/src
 COPY worker ./worker
 RUN cd worker && cargo build --release

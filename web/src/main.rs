@@ -16,8 +16,6 @@ use darkforce_shared::{
 };
 use failure::Error;
 
-
-
 #[tokio::main]
 pub async fn main() -> Result<(), Error> {
     let logger = setup_logger()?;

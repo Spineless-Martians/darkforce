@@ -11,18 +11,8 @@ export default class Footer extends Component {
       <div className={styles.footer}>
         <Container>
           <div className={styles.container}>
-            <div className={styles.links}>
-              <div className={styles.linksContainer}>
-                <Link to={'/'}>About</Link>
-                <Link to={'/docs/installation'}>Installation</Link>
-              </div>
-              <div className={styles.linksContainer}>
-                <a href={'https://github.com/Joatin/shelfdb'}>Github</a>
-                <a href={'https://hub.docker.com/r/joatin/shelfdb'}>Docker</a>
-              </div>
-            </div>
             <div className={styles.copyrightRow}>
-              <span>Copyright @2020 Joatin Granlund</span>
+              <span>Made with  ❤️ by Spineless-Martians</span>
             </div>
           </div>
         </Container>

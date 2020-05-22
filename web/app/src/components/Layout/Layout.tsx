@@ -9,6 +9,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import {fab} from "@fortawesome/free-brands-svg-icons";
 import {fas} from "@fortawesome/free-solid-svg-icons";
 import styles from './Layout.module.scss';
+import Menu from "../Menu/Menu";
 
 library.add(fab, fas);
 
@@ -37,9 +38,14 @@ export default class Layout extends Component<LayoutProps> {
         render={data => (
           <div className={styles.container}>
             <SEO {...this.props} title={title || data.site.siteMetadata.title}/>
-            <Header title={data.site.siteMetadata.title} />
-            {children}
-            <div className={styles.spacer}/>
+            <div className={styles.contentContainer}>
+              <div className={styles.contentContentContainer}>
+                <Header title={data.site.siteMetadata.title} />
+                {children}
+                <div className={styles.spacer}/>
+              </div>
+              <Menu />
+            </div>
             <Footer/>
           </div>
         )}

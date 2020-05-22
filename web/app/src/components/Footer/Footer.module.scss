@@ -1,8 +1,9 @@
 
 
 .footer {
-  font-family: 'Roboto';
-  background-color: #2c2a35;
+  font-family: 'Roboto', serif;
+  background-color: #353943;
+  border-top: 1px solid #474c5a;
 }
 
 .container {
@@ -11,9 +12,11 @@
 }
 
 .copyrightRow {
-  padding: 0 0 1em;
+  padding: .5em 0;
   color: #61596a;
   text-align: center;
+  font-family: "Fira Code", serif;
+  font-weight: 800;
   & > span {
     font-size: .8em;
   }
