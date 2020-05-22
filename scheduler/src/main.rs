@@ -17,7 +17,7 @@ pub async fn main() -> Result<(), Error> {
 
     print_banner(&settings);
 
-    info!(logger, "Starting Darkforce Scheduler");
+    info!(logger, "Starting Darkforce Scheduler 💃");
 
     let store = get_store_from_config(&logger, &settings).await?;
 
