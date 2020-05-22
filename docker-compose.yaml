@@ -12,6 +12,12 @@ services:
       context: .
     ports:
       - "3010:3010"
+  web:
+    build:
+      dockerfile: web/Dockerfile
+      context: .
+    ports:
+      - "3000:3000"
   database:
     image: mongo:latest
     environment:

@@ -16,4 +16,6 @@ RUN cd web && cargo build --release
 
 FROM gcr.io/distroless/cc-debian10
 COPY --from=Builder  /usr/data/web/target/release/darkforce_web /usr/local/bin/darkforce_web
+ENV DARKFORCE_WEB_ADDRESS=0.0.0.0:3000
+EXPOSE 3000
 CMD ["darkforce_web"]

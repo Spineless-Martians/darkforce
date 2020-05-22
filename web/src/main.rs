@@ -29,7 +29,7 @@ pub async fn main() -> Result<(), Error> {
 
     // let _manager = DAGManager::new(&logger, &store).await?;
 
-    start_web_server(&logger).await?;
+    start_web_server(&logger, &settings).await?;
 
     Ok(())
 }

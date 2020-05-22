@@ -3,6 +3,7 @@ use failure::Error;
 use slog::Logger;
 
 use crate::query::Query;
+use darkforce_shared::Settings;
 use hyper::{
     service::{
         make_service_fn,
@@ -24,21 +25,29 @@ use std::sync::Arc;
 #[folder = "app/public/"]
 struct Assets;
 
-pub async fn start_web_server(logger: &Logger) -> Result<(), Error> {
+pub async fn start_web_server(logger: &Logger, settings: &Settings) -> Result<(), Error> {
+    for asset in Assets::iter() {
+        debug!(logger, "Available static asset: {}", asset);
+    }
+
     let root_node = Arc::new(Schema::new(
         Query {},
         EmptyMutation::new(),
         EmptySubscription::new(),
     ));
 
-    let addr = ([127, 0, 0, 1], 3000).into();
     let new_service = make_service_fn(move |_| {
+        let logger = logger.clone();
         let root_node = root_node.clone();
 
         async move {
+            let logger = logger.clone();
             Ok::<_, hyper::Error>(service_fn(move |req| {
                 let root_node = root_node.clone();
+                let logger = logger.clone();
                 async move {
+                    let logger = logger.new(o!("path" => req.uri().path().to_string(), "method" => req.method().to_string(), "request_id" => "ID"));
+                    info!(logger, "Request received");
                     match (req.method(), req.uri().path()) {
                         (&Method::GET, "/playground") => {
                             juniper_hyper::playground("/graphql", None).await
@@ -47,8 +56,8 @@ pub async fn start_web_server(logger: &Logger) -> Result<(), Error> {
                             juniper_hyper::graphql(root_node, Arc::new(()), req).await
                         }
                         _ => {
-                            let asset = Assets::iter().find(|i| req.uri().path() == i);
-
+                            let asset =
+                                Assets::iter().find(|i| req.uri().path() == format!("/{}", i));
                             let body = if let Some(ass) = asset {
                                 Body::from(Assets::get(&ass).unwrap())
                             } else {
@@ -65,10 +74,10 @@ pub async fn start_web_server(logger: &Logger) -> Result<(), Error> {
         }
     });
 
-    let server = Server::bind(&addr)
+    let server = Server::bind(&settings.web_address())
         .serve(new_service)
         .with_graceful_shutdown(shutdown_signal());
-    info!(logger, "Listening on http://{}", addr);
+    info!(logger, "Listening on http://{}", settings.web_address());
 
     if let Err(e) = server.await {
         eprintln!("server error: {}", e)

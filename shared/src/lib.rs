@@ -12,7 +12,10 @@ mod store;
 pub use self::{
     dag::DAGManager,
     print_banner::print_banner,
-    settings::load_settings,
+    settings::{
+        load_settings,
+        Settings,
+    },
     setup_logger::setup_logger,
     store::{
         get_store_from_config,
