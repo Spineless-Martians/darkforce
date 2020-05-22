@@ -17,7 +17,7 @@ services:
       dockerfile: web/Dockerfile
       context: .
     ports:
-      - "3000:3000"
+      - "4000:3000"
   database:
     image: mongo:latest
     environment:

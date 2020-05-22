@@ -78,3 +78,21 @@ jobs:
           key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
       - name: Run tests
         run: cargo test
+  build_scheduler:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build the tagged Docker image
+        run: docker build --file scheduler/Dockerfile --tag latest .
+  build_worker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build the tagged Docker image
+        run: docker build --file worker/Dockerfile --tag latest .
+  build_web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build the tagged Docker image
+        run: docker build --file web/Dockerfile --tag latest .
